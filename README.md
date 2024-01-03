@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # My-Work
 My-Work
 
@@ -71,3 +72,7 @@ push your code on github in specific branch
 
 create new branch and move in
 >>> git checkout -b [branch-name]
+=======
+# my-work
+my-work
+>>>>>>> origin/main
