@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Update-party
+{% endblock %}
+
+{% block body %}
+<div class="w-1/3 mx-auto">
+    <form action="{% url 'update_party_details' id=get_party.id %}" method="post" class="bg-white shadow-md rounded px-8  pb-8 mb-4">
+        {% csrf_token %}
+        <h3
+            class="w-full text-center text-xl mb-6 font-semibold whitespace-nowrap dark:text-white bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text">
+            Update Party details</h3>
+        {% csrf_token %}
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="firmname">
+                Firm name
+            </label>
+            <input name="firmname"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="firmname" type="text" value="{{get_party.firm_name}}" placeholder="m. p. febrics...">
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="firstname">
+                Frist name
+            </label>
+            <input name="firstname"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="firstname" type="text" value="{{get_party.first_name}}" placeholder="Jhon">
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="lastname">
+                Last name
+            </label>
+            <input name="lastname"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="lastname" type="text" value="{{get_party.last_name}}" placeholder="Doe">
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+                Email
+            </label>
+            <input name="email"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="email" type="email" value="{{get_party.email}}" placeholder="Example@gmail.com">
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="mobile">
+                Mobile
+            </label>
+            <input name="mobile"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="mobile" type="text" value="{{get_party.mobile}}" placeholder="(+1) 765 8798 345">
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="address">
+                Address
+            </label>
+            <textarea name="address"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="address" placeholder="Type your address here...">{{get_party.address}}</textarea>
+        </div>
+
+
+
+        <div class="flex items-center justify-between">
+            <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="submit">
+                Save Changes
+            </button>
+            <a href="{% url 'delete_party' id=get_party.id %}" class="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="submit">
+                Delete
+            </a>
+            <!-- <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
+            Forgot Password?
+          </a> -->
+        </div>
+    </form>
+    <p class="text-center text-gray-500 text-xs">
+        &copy;2020 Acme Corp. All rights reserved.
+    </p>
+</div>
+{% endblock %}

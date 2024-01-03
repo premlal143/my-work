@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Parties
+{% endblock %}
+
+{% block body %}
+<div class="lg:flex">
+  <div class="lg:w-1/3">
+    <form action="" method="post" class="bg-white shadow-md rounded px-8  pb-8 mb-4">
+      <h3
+        class="self-center text-xl mb-6 font-semibold whitespace-nowrap dark:text-white bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text">
+        Party Registration form</h3>
+      {% csrf_token %}
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="firmname">
+          Firm name
+        </label>
+        <input name="firmname"
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="firmname" type="text" placeholder="m. p. febrics...">
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="firstname">
+          Frist name
+        </label>
+        <input name="firstname"
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="firstname" type="text" placeholder="Jhon">
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="lastname">
+          Last name
+        </label>
+        <input name="lastname"
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="lastname" type="text" placeholder="Doe">
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+          Email
+        </label>
+        <input name="email"
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="email" type="email" placeholder="Example@gmail.com">
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="mobile">
+          Mobile
+        </label>
+        <input name="mobile"
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="mobile" type="text" placeholder="(+1) 765 8798 345">
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="address">
+          Address
+        </label>
+        <textarea name="address"
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="address" placeholder="Type your address here..."></textarea>
+      </div>
+
+      <div class="flex items-center justify-between">
+        <button
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          type="submit">
+          Register
+        </button>
+        <!-- <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
+            Forgot Password?
+          </a> -->
+      </div>
+    </form>
+  </div>
+  <div class="lg:w-2/3 ">
+    <p
+      class="w-full ml-6 text-xl font-semibold whitespace-nowrap dark:text-white bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text">
+      Parties Details</p>
+    <div class="relative overflow-x-auto">
+
+      <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <tr>
+            <th scope="col" class="px-6 py-3">
+              Firmname
+            </th>
+            <th scope="col" class="px-6 py-3">
+              Fullname
+            </th>
+            <th scope="col" class="px-6 py-3">
+              Email
+            </th>
+            <th scope="col" class="px-6 py-3">
+              Mobile
+            </th>
+            <th scope="col" class="px-6 py-3">
+              Address
+            </th>
+            <th scope="col" class="px-6 py-3">
+              Action
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if parties|length == 0 %}
+          <tr class="bg-white dark:bg-gray-800">
+            <td colspan="6" class="px-6 py-4 text-center text-xl">
+              No parties available.
+            </td>
+          </tr>
+          
+          {% else %}
+          {% for party in parties %}
+          <tr class="bg-white dark:bg-gray-800">
+            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+              {{party.firm_name|title}}
+            </th>
+            <td class="px-6 py-4">
+              {{party.first_name|title}} {{party.last_name|title}}
+            </td>
+            <td class="px-6 py-4">
+              {{party.email}}
+            </td>
+            <td class="px-6 py-4">
+              {{party.mobile}}
+            </td>
+            <td class="px-6 py-4">
+              {{party.address}}
+            </td>
+            <td class="px-6 py-4">
+              <div class="flex">
+                <a href="{% url 'update_party_details' id=party.id %}" class="text-blue-500"><i class="fa fa-pencil-square-o fa-2x mr-2" aria-hidden="true"></i></a>
+                |
+                <a href="{% url 'delete_party' id=party.id %}" class="text-red-500"><i class="fa fa-trash fa-2x ml-2" aria-hidden="true"></i></a>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+
+
+  </div>
+</div>
+
+{% endblock%}
