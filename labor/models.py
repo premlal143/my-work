@@ -6,7 +6,6 @@ from django.conf import settings
 
 from master.models import base_table,counter_table
 from master.utils.unique import generate_password
-
 # Create your models here.
 class labor_register(base_table):
     labor_id = models.CharField(primary_key =True, max_length=50, blank=True)
@@ -28,7 +27,7 @@ class labor_register(base_table):
             counters.last_labor_id +=1
             counters.save()
             print(counters.last_labor_id)
-            self.labor_id ='Lb000' + str(counters.last_labor_id)
+            self.labor_id ='LB000' + str(counters.last_labor_id)
             print(self.labor_id)
 
         if not self.password:
@@ -50,7 +49,7 @@ class labor_register(base_table):
             plain_message = strip_tags(html_message)
 
 
-            print(subject, plain_message, from_email, recipient_list)
+
             send_mail(subject, plain_message, from_email, recipient_list)
             self.credential_is_sent = True
         super(labor_register, self).save(*args, **kwargs)

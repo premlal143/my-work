@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Add-Task-Payment
+{% endblock %}
+
+{% block body %}
+<div class="w-1/3 mx-auto">
+    <form action="" method="post" class="bg-white shadow-md rounded px-8  pb-8 mb-4">
+        {% csrf_token %}
+        <h3
+            class="self-center text-xl mb-6 font-semibold whitespace-nowrap dark:text-white bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text">
+            Task Account - [{{task.task_id}}]</h3>
+
+
+        <div
+            class="w-full my-4 text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <a
+                class="relative inline-flex items-center w-full px-4 py-2 text-sm font-medium border border-gray-300 rounded-t-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white justify-between">
+                <span>Total Amount</span>
+                <span><i class="fa fa-inr"></i> {{task.total_payment}}</span>
+
+            </a>
+            <a
+                class="relative inline-flex items-center w-full px-4 py-2 text-sm font-medium border border-gray-300 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white justify-between">
+                <span>Paid Amount</span>
+                <span><i class="fa fa-inr"></i> {{task.paid_payment}}</span>
+
+            </a>
+            <a
+                class="relative inline-flex items-center w-full px-4 py-2 text-sm font-medium border border-gray-300 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white justify-between">
+                <span>Remaining Amount</span>
+                <span><i class="fa fa-inr"></i> {{task.remaining_payment}}</span>
+
+            </a>
+        </div>
+
+
+
+
+        {% if task.remaining_payment != 0 %}
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="payment_entry">
+                Payment Installment
+            </label>
+            <input name="payment_entry"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="payment_entry" type="number" placeholder="0" required>
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="payment_date">
+                Payment date
+            </label>
+            <input name="payment_date"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="payment_date" type="date" required>
+        </div>
+
+
+        <div class="flex items-center justify-between">
+            <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="submit">
+                Pay
+            </button>
+
+            <!-- <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
+            Forgot Password?
+          </a> -->
+        </div>
+        {% endif %}
+    </form>
+</div>
+<div class="w-2/3 mx-auto">
+    <p
+        class="w-full ml-6 my-4 text-xl text-center font-semibold whitespace-nowrap dark:text-white bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text">
+        Task Payment installment history</p>
+    <div class="relative  overflow-x-auto border-2 border-gray-400">
+
+
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                        Payment ID
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Date
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Installment
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if entries|length == 0 %}
+                <tr class="bg-white dark:bg-gray-800">
+                    <td colspan="6" class="px-6 py-4 text-center text-xl">
+                        Payment entry not available.
+                    </td>
+                </tr>
+                {% else %}
+                {% for entry in entries %}
+                <tr class="bg-white dark:bg-gray-800">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{entry.payment_id}}
+                    </th>
+                    <td class="px-6 py-4">
+                        {{entry.paid_date}}
+                    </td>
+                    <td class="px-6 py-4">
+                        <i class="fa fa-inr"></i> {{entry.payment_entry}}/-
+                    </td>
+                </tr>
+                {% endfor %}
+                {% endif %}
+                <tr class="bg-white dark:bg-gray-800">
+                    <td scope="row"
+                        class="px-6 py-4 font-medium text-center text-gray-900 whitespace-nowrap dark:text-white"
+                        colspan="2">
+                        Total Paid Amount :
+                    </td>
+                    <td class="px-6 py-4">
+                        <i class="fa fa-inr"></i> {{task.paid_payment}}/-
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -11,3 +11,4 @@ class base_table(models.Model):
 class counter_table(base_table):
     last_labor_id = models.IntegerField(default=0)
     last_task_id = models.IntegerField(default=0)
+    last_payment_entry_id = models.IntegerField(default=0)

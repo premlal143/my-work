@@ -10,6 +10,9 @@ urlpatterns =[
 
     path('dashboard_view/',dashboard_view, name ='dashboard_view'),
     path('tasks_view/', tasks_view, name='tasks_view'),
+    path('update_task/<str:task_id>', update_task, name='update_task'),
+    path('delete_task/<str:task_id>', delete_task, name='delete_task'),
+    path('payment_entry/<str:task_id>', payment_entry, name='payment_entry'),
     path('parties_view/', parties_view, name='parties_view'),
     path('update_party_details/<int:id>',update_party_details, name = 'update_party_details' ),
     path('delete_party/<int:id>', delete_party, name = 'delete_party'),
